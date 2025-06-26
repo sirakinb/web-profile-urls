@@ -11,9 +11,8 @@ async function getUserById(id: string) {
   return { data, error };
 }
 
-export default async function ProfilePage(props: { params: { id: string } } | Promise<{ params: { id: string } }>) {
-  const { params } = await props;
-  const { id } = params;
+export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const { data: user, error } = await getUserById(id);
 
   // Debug output
@@ -27,7 +26,7 @@ export default async function ProfilePage(props: { params: { id: string } } | Pr
             <span className="material-icons text-white text-4xl">person_off</span>
           </div>
           <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Profile Not Found</h1>
-          <p className="text-gray-300 font-light">We couldn't find a user with that profile.</p>
+          <p className="text-gray-300 font-light">We couldn&apos;t find a user with that profile.</p>
         </div>
       </div>
     );
