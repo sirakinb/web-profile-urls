@@ -66,7 +66,7 @@ export default function ContactActions({ card }: ContactActionsProps) {
       // Use native sharing on mobile
       try {
         await navigator.share(shareData);
-      } catch (err) {
+      } catch {
         console.log('Share cancelled or failed');
       }
     } else {
@@ -74,7 +74,7 @@ export default function ContactActions({ card }: ContactActionsProps) {
       try {
         await navigator.clipboard.writeText(window.location.href);
         alert('Profile link copied to clipboard!');
-      } catch (err) {
+      } catch {
         // Fallback for older browsers
         const textArea = document.createElement('textarea');
         textArea.value = window.location.href;
