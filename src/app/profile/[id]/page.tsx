@@ -88,107 +88,71 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             
             <div className="space-y-3">
               {fieldVisibility.email && card.email && (
-                <div className="flex items-center bg-black/20 md:bg-white/10 backdrop-blur-md md:backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/20 md:border-white/20 hover:bg-black/30 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group">
+                <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-purple-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-purple-500 via-purple-600 to-indigo-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-purple-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">email</span>
                   </div>
-                  <div className="flex-1 md:block hidden">
-                    <span className="text-white/90 text-sm font-medium block mb-1">Email</span>
-                    <span className="text-white font-semibold text-base tracking-wide">{card.email}</span>
-                  </div>
-                  <span className="text-white font-medium tracking-wide md:hidden">{card.email}</span>
+                  <span className="text-slate-700 md:text-white font-medium md:font-medium tracking-wide flex-1">{card.email}</span>
                 </div>
               )}
 
               {fieldVisibility.phone && card.phone && (
-                <div className="flex items-center bg-black/20 md:bg-white/10 backdrop-blur-md md:backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/20 md:border-white/20 hover:bg-black/30 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group">
+                <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-emerald-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-emerald-500 via-emerald-600 to-green-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-emerald-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">phone</span>
                   </div>
-                  <div className="flex-1 md:block hidden">
-                    <span className="text-white/90 text-sm font-medium block mb-1">Phone</span>
-                    <span className="text-white font-semibold text-base tracking-wide">{card.phone}</span>
-                  </div>
-                  <span className="text-white font-medium tracking-wide md:hidden">{card.phone}</span>
+                  <span className="text-slate-700 md:text-white font-medium md:font-medium tracking-wide flex-1">{card.phone}</span>
                 </div>
               )}
 
               {fieldVisibility.website && card.website && (
-                <div className="flex items-center bg-black/20 md:bg-white/10 backdrop-blur-md md:backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/20 md:border-white/20 hover:bg-black/30 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group">
+                <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-slate-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-slate-500 via-slate-600 to-gray-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-slate-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">language</span>
                   </div>
-                  <div className="flex-1 md:block hidden">
-                    <span className="text-white/90 text-sm font-medium block mb-1">Website</span>
-                    <span className="text-white font-semibold text-base tracking-wide">{card.website}</span>
-                  </div>
-                  <span className="text-white font-medium tracking-wide md:hidden">{card.website}</span>
+                  <span className="text-slate-700 md:text-white font-medium md:font-medium tracking-wide flex-1">{card.website}</span>
                 </div>
               )}
 
               {fieldVisibility.linkedin && card.linkedin && (
-                <div className="flex items-center bg-black/20 md:bg-white/10 backdrop-blur-md md:backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/20 md:border-white/20 hover:bg-black/30 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group">
+                <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-blue-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-blue-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">work</span>
                   </div>
-                  <div className="flex-1 md:block hidden">
-                    <span className="text-white/90 text-sm font-medium block mb-1">LinkedIn</span>
-                    <a href={card.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-200 font-semibold text-base tracking-wide transition-colors">
-                      LinkedIn Profile
-                    </a>
-                  </div>
-                  <a href={card.linkedin} target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 font-medium tracking-wide transition-colors md:text-blue-300 md:hover:text-blue-200">
+                  <a href={card.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-700 md:text-blue-300 hover:text-slate-500 md:hover:text-blue-200 font-medium md:font-medium tracking-wide transition-colors flex-1">
                     LinkedIn Profile
                   </a>
                 </div>
               )}
 
               {fieldVisibility.twitter && card.twitter && (
-                <div className="flex items-center bg-black/20 md:bg-white/10 backdrop-blur-md md:backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/20 md:border-white/20 hover:bg-black/30 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group">
+                <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-slate-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-slate-400 via-slate-500 to-gray-500 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-slate-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">alternate_email</span>
                   </div>
-                  <div className="flex-1 md:block hidden">
-                    <span className="text-white/90 text-sm font-medium block mb-1">Twitter</span>
-                    <a href={card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200 font-semibold text-base tracking-wide transition-colors">
-                      Twitter Profile
-                    </a>
-                  </div>
-                  <a href={card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 font-medium tracking-wide transition-colors md:hover:text-gray-200">
+                  <a href={card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-slate-700 md:text-white hover:text-slate-500 md:hover:text-gray-200 font-medium md:font-medium tracking-wide transition-colors flex-1">
                     Twitter Profile
                   </a>
                 </div>
               )}
 
               {fieldVisibility.tiktok && card.tiktok && (
-                <div className="flex items-center bg-black/20 md:bg-white/10 backdrop-blur-md md:backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/20 md:border-white/20 hover:bg-black/30 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group">
+                <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-pink-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-pink-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">music_note</span>
                   </div>
-                  <div className="flex-1 md:block hidden">
-                    <span className="text-white/90 text-sm font-medium block mb-1">TikTok</span>
-                    <a href={card.tiktok.startsWith('http') ? card.tiktok : `https://tiktok.com/@${card.tiktok.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-pink-300 hover:text-pink-200 font-semibold text-base tracking-wide transition-colors">
-                      TikTok Profile
-                    </a>
-                  </div>
-                  <a href={card.tiktok.startsWith('http') ? card.tiktok : `https://tiktok.com/@${card.tiktok.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 font-medium tracking-wide transition-colors md:text-pink-300 md:hover:text-pink-200">
+                  <a href={card.tiktok.startsWith('http') ? card.tiktok : `https://tiktok.com/@${card.tiktok.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-slate-700 md:text-pink-300 hover:text-slate-500 md:hover:text-pink-200 font-medium md:font-medium tracking-wide transition-colors flex-1">
                     TikTok Profile
                   </a>
                 </div>
               )}
 
               {fieldVisibility.youtube && card.youtube && (
-                <div className="flex items-center bg-black/20 md:bg-white/10 backdrop-blur-md md:backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/20 md:border-white/20 hover:bg-black/30 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group">
+                <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-red-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-red-500 via-red-600 to-red-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-red-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">play_circle</span>
                   </div>
-                  <div className="flex-1 md:block hidden">
-                    <span className="text-white/90 text-sm font-medium block mb-1">YouTube</span>
-                    <a href={card.youtube.startsWith('http') ? card.youtube : `https://youtube.com/@${card.youtube}`} target="_blank" rel="noopener noreferrer" className="text-red-300 hover:text-red-200 font-semibold text-base tracking-wide transition-colors">
-                      YouTube Channel
-                    </a>
-                  </div>
-                  <a href={card.youtube.startsWith('http') ? card.youtube : `https://youtube.com/@${card.youtube}`} target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 font-medium tracking-wide transition-colors md:text-red-300 md:hover:text-red-200">
+                  <a href={card.youtube.startsWith('http') ? card.youtube : `https://youtube.com/@${card.youtube}`} target="_blank" rel="noopener noreferrer" className="text-slate-700 md:text-red-300 hover:text-slate-500 md:hover:text-red-200 font-medium md:font-medium tracking-wide transition-colors flex-1">
                     YouTube Channel
                   </a>
                 </div>
