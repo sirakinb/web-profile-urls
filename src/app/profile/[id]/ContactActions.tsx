@@ -162,7 +162,7 @@ export default function ContactActions({ card }: ContactActionsProps) {
       </button>
       <button 
         onClick={() => handleShare(card)}
-        className="flex-1 bg-white/10 hover:bg-white/15 backdrop-blur-sm text-white py-4 rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 border border-white/20 hover:border-white/30 tracking-wide"
+        className="flex-1 bg-black/20 md:bg-white/10 hover:bg-black/30 md:hover:bg-white/15 backdrop-blur-md md:backdrop-blur-sm text-white py-4 rounded-xl md:rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 border border-white/20 hover:border-white/30 tracking-wide"
       >
         <span className="material-icons mr-2">share</span> 
         Share
