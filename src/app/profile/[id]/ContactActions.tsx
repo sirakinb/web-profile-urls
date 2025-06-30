@@ -155,9 +155,9 @@ export default function ContactActions({ card }: ContactActionsProps) {
     <div className="flex gap-4 relative z-10">
       <button 
         onClick={() => handleSaveContact(card)}
-        className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-4 rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 tracking-wide"
+        className="flex-1 bg-white/95 md:bg-gradient-to-r md:from-purple-600 md:to-indigo-600 hover:bg-white/100 md:hover:from-purple-700 md:hover:to-indigo-700 text-black md:text-white py-4 rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl md:hover:scale-105 tracking-wide"
       >
-        <span className="material-icons mr-2">download</span> 
+        <span className="material-icons mr-1 md:mr-2 text-black md:text-white">download</span> 
         Save Contact
       </button>
       <button 
