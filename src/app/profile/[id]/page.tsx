@@ -88,73 +88,94 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             
             <div className="space-y-3">
               {fieldVisibility.email && card.email && (
-                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-white text-lg">email</span>
+                <div className="flex items-center bg-gradient-to-r from-white/15 to-white/10 md:bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/25 md:border-white/20 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/15 md:hover:bg-white/15 transition-all duration-500 group shadow-lg shadow-purple-500/10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-purple-500 via-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-purple-500/25">
+                    <span className="material-icons text-white text-xl">email</span>
                   </div>
-                  <span className="text-white flex-1 font-medium tracking-wide">{card.email}</span>
+                  <div className="flex-1">
+                    <span className="text-white/90 text-sm font-medium block mb-1">Email</span>
+                    <span className="text-white font-semibold text-base tracking-wide">{card.email}</span>
+                  </div>
                 </div>
               )}
 
               {fieldVisibility.phone && card.phone && (
-                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-white text-lg">phone</span>
+                <div className="flex items-center bg-gradient-to-r from-white/15 to-white/10 md:bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/25 md:border-white/20 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/15 md:hover:bg-white/15 transition-all duration-500 group shadow-lg shadow-emerald-500/10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 via-emerald-600 to-green-600 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-emerald-500/25">
+                    <span className="material-icons text-white text-xl">phone</span>
                   </div>
-                  <span className="text-white flex-1 font-medium tracking-wide">{card.phone}</span>
+                  <div className="flex-1">
+                    <span className="text-white/90 text-sm font-medium block mb-1">Phone</span>
+                    <span className="text-white font-semibold text-base tracking-wide">{card.phone}</span>
+                  </div>
                 </div>
               )}
 
               {fieldVisibility.website && card.website && (
-                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-to-r from-slate-500 to-gray-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-white text-lg">language</span>
+                <div className="flex items-center bg-gradient-to-r from-white/15 to-white/10 md:bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/25 md:border-white/20 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/15 md:hover:bg-white/15 transition-all duration-500 group shadow-lg shadow-slate-500/10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-slate-500 via-slate-600 to-gray-600 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-slate-500/25">
+                    <span className="material-icons text-white text-xl">language</span>
                   </div>
-                  <span className="text-white flex-1 font-medium tracking-wide">{card.website}</span>
+                  <div className="flex-1">
+                    <span className="text-white/90 text-sm font-medium block mb-1">Website</span>
+                    <span className="text-white font-semibold text-base tracking-wide">{card.website}</span>
+                  </div>
                 </div>
               )}
 
               {fieldVisibility.linkedin && card.linkedin && (
-                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-white text-lg">work</span>
+                <div className="flex items-center bg-gradient-to-r from-white/15 to-white/10 md:bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/25 md:border-white/20 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/15 md:hover:bg-white/15 transition-all duration-500 group shadow-lg shadow-blue-500/10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-blue-500/25">
+                    <span className="material-icons text-white text-xl">work</span>
                   </div>
-                  <a href={card.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-200 flex-1 transition-colors font-medium tracking-wide">
-                    LinkedIn Profile
-                  </a>
+                  <div className="flex-1">
+                    <span className="text-white/90 text-sm font-medium block mb-1">LinkedIn</span>
+                    <a href={card.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-200 font-semibold text-base tracking-wide transition-colors">
+                      LinkedIn Profile
+                    </a>
+                  </div>
                 </div>
               )}
 
               {fieldVisibility.twitter && card.twitter && (
-                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-to-r from-slate-400 to-gray-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-white text-lg">alternate_email</span>
+                <div className="flex items-center bg-gradient-to-r from-white/15 to-white/10 md:bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/25 md:border-white/20 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/15 md:hover:bg-white/15 transition-all duration-500 group shadow-lg shadow-slate-500/10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-slate-400 via-slate-500 to-gray-500 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-slate-500/25">
+                    <span className="material-icons text-white text-xl">alternate_email</span>
                   </div>
-                  <a href={card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200 flex-1 transition-colors font-medium tracking-wide">
-                    Twitter Profile
-                  </a>
+                  <div className="flex-1">
+                    <span className="text-white/90 text-sm font-medium block mb-1">Twitter</span>
+                    <a href={card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200 font-semibold text-base tracking-wide transition-colors">
+                      Twitter Profile
+                    </a>
+                  </div>
                 </div>
               )}
 
               {fieldVisibility.tiktok && card.tiktok && (
-                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-white text-lg">music_note</span>
+                <div className="flex items-center bg-gradient-to-r from-white/15 to-white/10 md:bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/25 md:border-white/20 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/15 md:hover:bg-white/15 transition-all duration-500 group shadow-lg shadow-pink-500/10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-pink-500/25">
+                    <span className="material-icons text-white text-xl">music_note</span>
                   </div>
-                  <a href={card.tiktok.startsWith('http') ? card.tiktok : `https://tiktok.com/@${card.tiktok.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-pink-300 hover:text-pink-200 flex-1 transition-colors font-medium tracking-wide">
-                    TikTok Profile
-                  </a>
+                  <div className="flex-1">
+                    <span className="text-white/90 text-sm font-medium block mb-1">TikTok</span>
+                    <a href={card.tiktok.startsWith('http') ? card.tiktok : `https://tiktok.com/@${card.tiktok.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-pink-300 hover:text-pink-200 font-semibold text-base tracking-wide transition-colors">
+                      TikTok Profile
+                    </a>
+                  </div>
                 </div>
               )}
 
               {fieldVisibility.youtube && card.youtube && (
-                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-white text-lg">play_circle</span>
+                <div className="flex items-center bg-gradient-to-r from-white/15 to-white/10 md:bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/25 md:border-white/20 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/15 md:hover:bg-white/15 transition-all duration-500 group shadow-lg shadow-red-500/10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-red-500 via-red-600 to-red-600 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-red-500/25">
+                    <span className="material-icons text-white text-xl">play_circle</span>
                   </div>
-                  <a href={card.youtube.startsWith('http') ? card.youtube : `https://youtube.com/@${card.youtube}`} target="_blank" rel="noopener noreferrer" className="text-red-300 hover:text-red-200 flex-1 transition-colors font-medium tracking-wide">
-                    YouTube Channel
-                  </a>
+                  <div className="flex-1">
+                    <span className="text-white/90 text-sm font-medium block mb-1">YouTube</span>
+                    <a href={card.youtube.startsWith('http') ? card.youtube : `https://youtube.com/@${card.youtube}`} target="_blank" rel="noopener noreferrer" className="text-red-300 hover:text-red-200 font-semibold text-base tracking-wide transition-colors">
+                      YouTube Channel
+                    </a>
+                  </div>
                 </div>
               )}
 
