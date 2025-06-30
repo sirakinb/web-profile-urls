@@ -49,17 +49,26 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           {/* Profile Header */}
           <div className="relative z-10 text-center mb-8">
             <div className="relative inline-block mb-6">
-              {card.avatar_url ? (
+              {card.avatar_url && card.avatar_url.startsWith('http') ? (
                 <img
                   src={card.avatar_url}
                   alt={card.name || card.email}
                   className="w-28 h-28 rounded-full object-cover border-4 border-white/20 shadow-xl"
+                  onError={(e) => {
+                    // If image fails to load, hide it and show default avatar
+                    e.currentTarget.style.display = 'none';
+                    if (e.currentTarget.nextElementSibling) {
+                      (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
+                    }
+                  }}
                 />
-              ) : (
-                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 border-4 border-white/20 shadow-xl flex items-center justify-center">
-                  <span className="material-icons text-white text-4xl">person</span>
-                </div>
-              )}
+              ) : null}
+              <div 
+                className="w-28 h-28 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 border-4 border-white/20 shadow-xl flex items-center justify-center"
+                style={{ display: card.avatar_url && card.avatar_url.startsWith('http') ? 'none' : 'flex' }}
+              >
+                <span className="material-icons text-white text-4xl">person</span>
+              </div>
             </div>
             <h1 className="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">{card.name || 'No Name'}</h1>
             {fieldVisibility.title && card.title && (
