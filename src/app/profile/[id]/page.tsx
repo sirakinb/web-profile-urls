@@ -88,34 +88,34 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             
             <div className="space-y-3">
               {fieldVisibility.email && card.email && (
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
+                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">email</span>
                   </div>
-                  <span className="text-gray-300 flex-1 font-medium tracking-wide">{card.email}</span>
+                  <span className="text-white flex-1 font-medium tracking-wide">{card.email}</span>
                 </div>
               )}
 
               {fieldVisibility.phone && card.phone && (
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
+                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">phone</span>
                   </div>
-                  <span className="text-gray-300 flex-1 font-medium tracking-wide">{card.phone}</span>
+                  <span className="text-white flex-1 font-medium tracking-wide">{card.phone}</span>
                 </div>
               )}
 
               {fieldVisibility.website && card.website && (
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
+                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-slate-500 to-gray-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">language</span>
                   </div>
-                  <span className="text-gray-300 flex-1 font-medium tracking-wide">{card.website}</span>
+                  <span className="text-white flex-1 font-medium tracking-wide">{card.website}</span>
                 </div>
               )}
 
               {fieldVisibility.linkedin && card.linkedin && (
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
+                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">work</span>
                   </div>
@@ -126,18 +126,18 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.twitter && card.twitter && (
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
+                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-slate-400 to-gray-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">alternate_email</span>
                   </div>
-                  <a href={card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-gray-200 flex-1 transition-colors font-medium tracking-wide">
+                  <a href={card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200 flex-1 transition-colors font-medium tracking-wide">
                     Twitter Profile
                   </a>
                 </div>
               )}
 
               {fieldVisibility.tiktok && card.tiktok && (
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
+                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">music_note</span>
                   </div>
@@ -148,7 +148,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.youtube && card.youtube && (
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
+                <div className="flex items-center bg-white/20 md:bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/30 md:border-white/20 hover:bg-white/25 md:hover:bg-white/15 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">play_circle</span>
                   </div>
