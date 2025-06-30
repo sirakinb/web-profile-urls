@@ -1,24 +1,25 @@
 import { supabase } from '@/utils/supabaseClient';
 import React from 'react';
 
-async function getUserById(id: string) {
-  // Query Supabase for a user by id
+async function getUserPrimaryCard(userId: string) {
+  // Query Supabase for the user's primary business card
   const { data, error } = await supabase
-    .from('profiles')
+    .from('business_cards')
     .select('*')
-    .eq('id', id)
+    .eq('user_id', userId)
+    .eq('is_primary', true)
     .single();
   return { data, error };
 }
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const { data: user, error } = await getUserById(id);
+  const { data: card, error } = await getUserPrimaryCard(id);
 
   // Debug output
-  console.log('ProfilePage debug:', { id, user, error });
+  console.log('ProfilePage debug:', { id, card, error });
 
-  if (error || !user) {
+  if (error || !card) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-4 font-sans">
         <div className="text-center">
@@ -31,6 +32,9 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       </div>
     );
   }
+
+  // Get field visibility settings
+  const fieldVisibility = card.field_visibility || {};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 flex items-center justify-center font-sans">
@@ -45,23 +49,25 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           <div className="relative z-10 text-center mb-8">
             <div className="relative inline-block mb-6">
               <img
-                src={user.avatar_url || '/default-avatar.png'}
-                alt={user.full_name || user.email}
+                src={card.avatar_url || '/default-avatar.png'}
+                alt={card.full_name || card.email}
                 className="w-28 h-28 rounded-full object-cover border-4 border-white/20 shadow-xl"
               />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">{user.full_name || 'No Name'}</h1>
-            <p className="text-purple-200 font-medium text-lg mb-1">{user.title || 'User'}</p>
-            {user.company && (
-              <p className="text-gray-400 text-sm font-light tracking-wide">{user.company}</p>
+            <h1 className="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">{card.full_name || 'No Name'}</h1>
+            {fieldVisibility.title && card.title && (
+              <p className="text-purple-200 font-medium text-lg mb-1">{card.title}</p>
+            )}
+            {fieldVisibility.company && card.company && (
+              <p className="text-gray-400 text-sm font-light tracking-wide">{card.company}</p>
             )}
           </div>
 
           {/* Bio Section */}
-          {user.bio && (
+          {fieldVisibility.bio && card.bio && (
             <div className="mb-8 relative z-10">
               <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
-                <p className="text-gray-300 text-center italic leading-relaxed font-light text-base">{user.bio}</p>
+                <p className="text-gray-300 text-center italic leading-relaxed font-light text-base">{card.bio}</p>
               </div>
             </div>
           )}
@@ -74,49 +80,84 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             </h2>
             
             <div className="space-y-3">
-              <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                  <span className="material-icons text-white text-lg">email</span>
+              {fieldVisibility.email && card.email && (
+                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="material-icons text-white text-lg">email</span>
+                  </div>
+                  <span className="text-gray-300 flex-1 font-medium tracking-wide">{card.email}</span>
                 </div>
-                <span className="text-gray-300 flex-1 font-medium tracking-wide">{user.email}</span>
-              </div>
+              )}
 
-              {user.phone && user.phone !== 'N/A' && (
+              {fieldVisibility.phone && card.phone && (
                 <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">phone</span>
                   </div>
-                  <span className="text-gray-300 flex-1 font-medium tracking-wide">{user.phone}</span>
+                  <span className="text-gray-300 flex-1 font-medium tracking-wide">{card.phone}</span>
                 </div>
               )}
 
-              {user.website && user.website !== 'N/A' && (
+              {fieldVisibility.website && card.website && (
                 <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-slate-500 to-gray-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">language</span>
                   </div>
-                  <span className="text-gray-300 flex-1 font-medium tracking-wide">{user.website}</span>
+                  <span className="text-gray-300 flex-1 font-medium tracking-wide">{card.website}</span>
                 </div>
               )}
 
-              {user.linkedin_url && (
+              {fieldVisibility.linkedin && card.linkedin && (
                 <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">work</span>
                   </div>
-                  <a href={user.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-200 flex-1 transition-colors font-medium tracking-wide">
+                  <a href={card.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-200 flex-1 transition-colors font-medium tracking-wide">
                     LinkedIn Profile
                   </a>
                 </div>
               )}
 
-              {user.twitter_url && (
+              {fieldVisibility.twitter && card.twitter && (
                 <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-slate-400 to-gray-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">alternate_email</span>
                   </div>
-                  <a href={user.twitter_url} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-gray-200 flex-1 transition-colors font-medium tracking-wide">
+                  <a href={card.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-gray-200 flex-1 transition-colors font-medium tracking-wide">
                     Twitter Profile
+                  </a>
+                </div>
+              )}
+
+              {fieldVisibility.tiktok && card.tiktok && (
+                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                  <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="material-icons text-white text-lg">music_note</span>
+                  </div>
+                  <a href={card.tiktok} target="_blank" rel="noopener noreferrer" className="text-pink-300 hover:text-pink-200 flex-1 transition-colors font-medium tracking-wide">
+                    TikTok Profile
+                  </a>
+                </div>
+              )}
+
+              {fieldVisibility.youtube && card.youtube && (
+                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="material-icons text-white text-lg">play_circle</span>
+                  </div>
+                  <a href={card.youtube} target="_blank" rel="noopener noreferrer" className="text-red-300 hover:text-red-200 flex-1 transition-colors font-medium tracking-wide">
+                    YouTube Channel
+                  </a>
+                </div>
+              )}
+
+              {fieldVisibility.instagram && card.instagram && (
+                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="material-icons text-white text-lg">camera_alt</span>
+                  </div>
+                  <a href={card.instagram} target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-purple-200 flex-1 transition-colors font-medium tracking-wide">
+                    Instagram Profile
                   </a>
                 </div>
               )}
