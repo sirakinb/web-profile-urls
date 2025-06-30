@@ -155,14 +155,14 @@ export default function ContactActions({ card }: ContactActionsProps) {
     <div className="flex gap-4 relative z-10">
       <button 
         onClick={() => handleSaveContact(card)}
-        className="flex-1 bg-white/95 md:bg-gradient-to-r md:from-purple-600 md:to-indigo-600 hover:bg-white/100 md:hover:from-purple-700 md:hover:to-indigo-700 text-black md:text-white py-4 rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl md:hover:scale-105 tracking-wide"
+        className="flex-1 bg-white/95 md:bg-gradient-to-r md:from-purple-600 md:to-indigo-600 hover:bg-white/100 hover:shadow-xl hover:border-slate-200 md:hover:from-purple-700 md:hover:to-indigo-700 text-black md:text-white py-4 rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 shadow-lg border border-slate-100 md:border-0 md:hover:scale-105 tracking-wide"
       >
         <span className="material-icons mr-1 md:mr-2 text-black md:text-white">download</span> 
         Save Contact
       </button>
       <button 
         onClick={() => handleShare(card)}
-        className="flex-1 bg-white/95 md:bg-white/10 hover:bg-white/100 md:hover:bg-white/15 backdrop-blur-md md:backdrop-blur-sm text-black md:text-white py-4 rounded-xl md:rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 border-0 md:border md:border-white/20 md:hover:border-white/30 tracking-wide shadow-lg md:shadow-none"
+        className="flex-1 bg-white/95 md:bg-white/10 hover:bg-white/100 hover:shadow-xl hover:border-slate-200 md:hover:bg-white/15 backdrop-blur-md md:backdrop-blur-sm text-black md:text-white py-4 rounded-xl md:rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 border border-slate-100 md:border md:border-white/20 md:hover:border-white/30 tracking-wide shadow-lg md:shadow-none"
       >
         <span className="material-icons mr-2 text-black md:text-white">share</span> 
         Share
