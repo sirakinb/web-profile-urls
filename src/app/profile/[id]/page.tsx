@@ -88,7 +88,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             
             <div className="space-y-3">
               {fieldVisibility.email && card.email && (
-                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">email</span>
                   </div>
@@ -97,7 +97,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.phone && card.phone && (
-                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">phone</span>
                   </div>
@@ -106,7 +106,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.website && card.website && (
-                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-slate-500 to-gray-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">language</span>
                   </div>
@@ -115,7 +115,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.linkedin && card.linkedin && (
-                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">work</span>
                   </div>
@@ -126,7 +126,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.twitter && card.twitter && (
-                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-slate-400 to-gray-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">alternate_email</span>
                   </div>
@@ -137,7 +137,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.tiktok && card.tiktok && (
-                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">music_note</span>
                   </div>
@@ -148,7 +148,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.youtube && card.youtube && (
-                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">play_circle</span>
                   </div>
@@ -159,7 +159,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.instagram && card.instagram && (
-                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">camera_alt</span>
                   </div>
