@@ -1,5 +1,6 @@
 import { supabase } from '@/utils/supabaseClient';
 import React from 'react';
+import ContactActions from './ContactActions';
 
 async function getUserPrimaryCard(userId: string) {
   // Query Supabase for the user's primary business card
@@ -48,13 +49,19 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           {/* Profile Header */}
           <div className="relative z-10 text-center mb-8">
             <div className="relative inline-block mb-6">
-              <img
-                src={card.avatar_url || '/default-avatar.png'}
-                alt={card.full_name || card.email}
-                className="w-28 h-28 rounded-full object-cover border-4 border-white/20 shadow-xl"
-              />
+              {card.avatar_url ? (
+                <img
+                  src={card.avatar_url}
+                  alt={card.name || card.email}
+                  className="w-28 h-28 rounded-full object-cover border-4 border-white/20 shadow-xl"
+                />
+              ) : (
+                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 border-4 border-white/20 shadow-xl flex items-center justify-center">
+                  <span className="material-icons text-white text-4xl">person</span>
+                </div>
+              )}
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">{card.full_name || 'No Name'}</h1>
+            <h1 className="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">{card.name || 'No Name'}</h1>
             {fieldVisibility.title && card.title && (
               <p className="text-purple-200 font-medium text-lg mb-1">{card.title}</p>
             )}
@@ -123,7 +130,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                   <div className="w-12 h-12 bg-gradient-to-r from-slate-400 to-gray-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">alternate_email</span>
                   </div>
-                  <a href={card.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-gray-200 flex-1 transition-colors font-medium tracking-wide">
+                  <a href={card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-gray-200 flex-1 transition-colors font-medium tracking-wide">
                     Twitter Profile
                   </a>
                 </div>
@@ -134,7 +141,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                   <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">music_note</span>
                   </div>
-                  <a href={card.tiktok} target="_blank" rel="noopener noreferrer" className="text-pink-300 hover:text-pink-200 flex-1 transition-colors font-medium tracking-wide">
+                  <a href={card.tiktok.startsWith('http') ? card.tiktok : `https://tiktok.com/@${card.tiktok.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-pink-300 hover:text-pink-200 flex-1 transition-colors font-medium tracking-wide">
                     TikTok Profile
                   </a>
                 </div>
@@ -145,7 +152,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                   <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="material-icons text-white text-lg">play_circle</span>
                   </div>
-                  <a href={card.youtube} target="_blank" rel="noopener noreferrer" className="text-red-300 hover:text-red-200 flex-1 transition-colors font-medium tracking-wide">
+                  <a href={card.youtube.startsWith('http') ? card.youtube : `https://youtube.com/@${card.youtube}`} target="_blank" rel="noopener noreferrer" className="text-red-300 hover:text-red-200 flex-1 transition-colors font-medium tracking-wide">
                     YouTube Channel
                   </a>
                 </div>
@@ -165,16 +172,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4 relative z-10">
-            <button className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-4 rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 tracking-wide">
-              <span className="material-icons mr-2">download</span> 
-              Save Contact
-            </button>
-            <button className="flex-1 bg-white/10 hover:bg-white/15 backdrop-blur-sm text-white py-4 rounded-2xl font-semibold flex items-center justify-center transition-all duration-300 border border-white/20 hover:border-white/30 tracking-wide">
-              <span className="material-icons mr-2">sync_alt</span> 
-              Exchange
-            </button>
-          </div>
+          <ContactActions card={card} />
         </div>
 
         {/* Footer */}
