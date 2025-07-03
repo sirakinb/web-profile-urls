@@ -168,11 +168,11 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               )}
 
               {fieldVisibility.instagram && card.instagram && (
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-white text-lg">camera_alt</span>
+                <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-purple-500/10">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-lg shadow-pink-500/25">
+                    <span className="material-icons text-white text-lg md:text-lg">camera_alt</span>
                   </div>
-                  <a href={card.instagram} target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-purple-200 flex-1 transition-colors font-medium tracking-wide">
+                  <a href={card.instagram} target="_blank" rel="noopener noreferrer" className="text-slate-700 md:text-purple-300 hover:text-slate-500 md:hover:text-purple-200 flex-1 transition-colors font-medium tracking-wide">
                     Instagram Profile
                   </a>
                 </div>
