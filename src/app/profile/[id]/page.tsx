@@ -71,16 +71,16 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
               </div>
             </div>
             <h1 className="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">{card.name || 'No Name'}</h1>
-            {fieldVisibility.title && card.title && (
+            {card.title && (
               <p className="text-purple-200 font-medium text-lg mb-1">{card.title}</p>
             )}
-            {fieldVisibility.company && card.company && (
+            {card.company && (
               <p className="text-gray-400 text-sm font-light tracking-wide">{card.company}</p>
             )}
           </div>
 
           {/* Bio Section */}
-          {fieldVisibility.bio && card.bio && (
+          {card.bio && (
             <div className="mb-8 relative z-10">
               <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
                 <p className="text-gray-300 text-center italic leading-relaxed font-light text-base">{card.bio}</p>
@@ -96,7 +96,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             </h2>
             
             <div className="space-y-3">
-              {fieldVisibility.email && card.email && (
+              {card.email && (
                 <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-purple-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-purple-500 via-purple-600 to-indigo-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-purple-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">email</span>
@@ -105,7 +105,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 </div>
               )}
 
-              {fieldVisibility.phone && card.phone && (
+              {card.phone && (
                 <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-emerald-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-emerald-500 via-emerald-600 to-green-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-emerald-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">phone</span>
@@ -114,7 +114,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 </div>
               )}
 
-              {fieldVisibility.website && card.website && (
+              {card.website && (
                 <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-slate-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-slate-500 via-slate-600 to-gray-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-slate-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">language</span>
@@ -123,7 +123,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 </div>
               )}
 
-              {fieldVisibility.linkedin && card.linkedin && (
+              {card.linkedin && (
                 <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-blue-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-blue-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">work</span>
@@ -134,7 +134,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 </div>
               )}
 
-              {fieldVisibility.twitter && card.twitter && (
+              {card.twitter && (
                 <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-slate-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-slate-400 via-slate-500 to-gray-500 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-slate-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">alternate_email</span>
@@ -145,7 +145,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 </div>
               )}
 
-              {fieldVisibility.tiktok && card.tiktok && (
+              {card.tiktok && (
                 <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-pink-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-pink-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">music_note</span>
@@ -156,7 +156,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 </div>
               )}
 
-              {fieldVisibility.youtube && card.youtube && (
+              {card.youtube && (
                 <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-red-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-red-500 via-red-600 to-red-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-red-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">play_circle</span>
@@ -167,7 +167,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 </div>
               )}
 
-              {fieldVisibility.instagram && card.instagram && (
+              {card.instagram && (
                 <div className="flex items-center bg-white/95 md:bg-white/10 backdrop-blur-sm md:backdrop-blur-lg rounded-2xl md:rounded-2xl p-5 md:p-5 border-0 md:border md:border-white/20 hover:bg-white/100 md:hover:bg-white/15 transition-all duration-300 md:duration-500 group shadow-lg md:shadow-lg md:shadow-purple-500/10">
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-lg shadow-pink-500/25">
                     <span className="material-icons text-white text-lg md:text-lg">camera_alt</span>
