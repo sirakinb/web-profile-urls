@@ -5,7 +5,7 @@ import ContactActions from './ContactActions';
 async function getUserPrimaryCard(userId: string) {
   // Query Supabase for the user's primary business card
   const { data, error } = await supabase
-    .from('business_cards')
+    .from('public_business_cards')
     .select('*')
     .eq('user_id', userId)
     .eq('is_primary', true)
