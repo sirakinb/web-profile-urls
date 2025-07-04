@@ -1,6 +1,7 @@
 import { supabase } from '@/utils/supabaseClient';
 import React from 'react';
 import ContactActions from './ContactActions';
+import Image from 'next/image';
 
 async function getUserPrimaryCard(userId: string) {
   // Query Supabase for the user's primary business card
@@ -34,9 +35,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     );
   }
 
-  // Get field visibility settings
-  const fieldVisibility = card.field_visibility || {};
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 flex items-center justify-center font-sans">
       <div className="w-full max-w-md">
@@ -50,15 +48,19 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           <div className="relative z-10 text-center mb-8">
             <div className="relative inline-block mb-6">
               {card.avatar_url && card.avatar_url.startsWith('http') ? (
-                <img
+                <Image
                   src={card.avatar_url}
                   alt={card.name || card.email}
+                  width={112}
+                  height={112}
+                  unoptimized
                   className="w-28 h-28 rounded-full object-cover border-4 border-white/20 shadow-xl"
                   onError={(e) => {
                     // If image fails to load, hide it and show default avatar
-                    e.currentTarget.style.display = 'none';
-                    if (e.currentTarget.nextElementSibling) {
-                      (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
+                    const target = e.currentTarget as unknown as HTMLImageElement;
+                    target.style.display = 'none';
+                    if (target.parentElement && target.parentElement.nextElementSibling) {
+                      (target.parentElement.nextElementSibling as HTMLElement).style.display = 'flex';
                     }
                   }}
                 />
