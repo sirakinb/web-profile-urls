@@ -2,13 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-
-// Create a Supabase client with service role key for admin operations
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if service role key is available
+    if (!supabaseServiceKey) {
+      return NextResponse.json(
+        { error: 'Service role key not configured. Please add SUPABASE_SERVICE_ROLE_KEY to your environment variables.' },
+        { status: 500 }
+      );
+    }
+
+    // Create a Supabase client with service role key for admin operations
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
     const body = await request.json();
     const { profileId, userId, updates } = body;
 
