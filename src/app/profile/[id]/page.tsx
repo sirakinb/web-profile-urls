@@ -31,6 +31,7 @@ type BusinessCardForActions = Pick<BusinessCard, 'name' | 'title' | 'company' | 
 
 async function getProfileById(profileId: string) {
   try {
+    // First try to get from public_business_cards view (for display)
     const { data, error } = await supabase
       .from('public_business_cards')
       .select('*')
@@ -111,7 +112,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
     setSaving(true);
     try {
       const { error } = await supabase
-        .from('public_business_cards')
+        .from('business_cards')
         .update({
           name: editForm.name,
           title: editForm.title,
