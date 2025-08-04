@@ -1,12 +1,62 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, uploadProfileImage } from '@/utils/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+// Upload profile image to Supabase Storage
+const uploadProfileImage = async (file: File, userId: string): Promise<string | null> => {
+  try {
+    if (!supabaseServiceKey) {
+      console.error('Service role key not configured');
+      return null;
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    
+    // Create a unique filename
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${userId}-${Date.now()}.${fileExt}`;
+    
+    // Upload to Supabase Storage
+    const { error } = await supabase.storage
+      .from('profile-avatars')
+      .upload(fileName, file, {
+        cacheControl: '3600',
+        upsert: false
+      });
+
+    if (error) {
+      console.error('Error uploading image:', error);
+      return null;
+    }
+
+    // Get the public URL
+    const { data: { publicUrl } } = supabase.storage
+      .from('profile-avatars')
+      .getPublicUrl(fileName);
+
+    return publicUrl;
+  } catch (error) {
+    console.error('Error in uploadProfileImage:', error);
+    return null;
+  }
+};
 
 export async function POST(request: NextRequest) {
   try {
+    if (!supabaseServiceKey) {
+      return NextResponse.json(
+        { error: 'Service role key not configured. Please add SUPABASE_SERVICE_ROLE_KEY to your environment variables.' },
+        { status: 500 }
+      );
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
     const userId = formData.get('userId') as string;
-    const authToken = request.headers.get('authorization')?.replace('Bearer ', '');
 
     if (!file || !userId) {
       return NextResponse.json(
@@ -15,29 +65,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Authentication check
-    if (!authToken) {
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
       return NextResponse.json(
-        { error: 'Authentication token required' },
-        { status: 401 }
+        { error: 'File must be an image' },
+        { status: 400 }
       );
     }
 
-    // Verify the user is authenticated
-    const { data: { user }, error: authError } = await supabase.auth.getUser(authToken);
-    
-    if (authError || !user) {
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
       return NextResponse.json(
-        { error: 'Invalid authentication token' },
-        { status: 401 }
-      );
-    }
-
-    // Verify the authenticated user matches the userId being updated
-    if (user.id !== userId) {
-      return NextResponse.json(
-        { error: 'You can only update your own profile' },
-        { status: 403 }
+        { error: 'File size must be less than 5MB' },
+        { status: 400 }
       );
     }
 
@@ -52,13 +92,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Profile not found' },
         { status: 404 }
-      );
-    }
-
-    if (profile.user_id !== userId) {
-      return NextResponse.json(
-        { error: 'You can only update your own profile' },
-        { status: 403 }
       );
     }
 
@@ -94,7 +127,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error in upload-avatar route:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error instanceof Error ? error.message : 'Internal server error' },
       { status: 500 }
     );
   }

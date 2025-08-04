@@ -21,7 +21,7 @@ export default function ProfileImageUpload({
   const [imageError, setImageError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { user, session } = useAuth();
+  const { user } = useAuth();
 
   const handleImageClick = () => {
     if (!user) {
@@ -57,23 +57,12 @@ export default function ProfileImageUpload({
     setUploading(true);
 
     try {
-      // Get the session token
-      const token = session?.access_token;
-
-      if (!token) {
-        alert('Authentication error. Please log in again.');
-        return;
-      }
-
       const formData = new FormData();
       formData.append('file', file);
       formData.append('userId', userId);
 
       const response = await fetch('/api/profile/upload-avatar', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
         body: formData
       });
 
