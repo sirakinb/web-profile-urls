@@ -117,6 +117,21 @@ export default function LoginModal({ isOpen, onClose, onSuccess }: LoginModalPro
               {loading ? 'Signing In...' : 'Sign In'}
             </button>
           </div>
+
+          {/* Get Your Own Drop Card Link */}
+          <div className="text-center pt-4 border-t border-white/10 mt-6">
+            <p className="text-gray-300 text-sm mb-2">Want your own drop card?</p>
+            <button
+              type="button"
+              onClick={() => {
+                // TODO: Navigate to drop card landing page
+                console.log('Navigate to drop card landing page');
+              }}
+              className="text-purple-400 hover:text-purple-300 font-medium text-sm underline transition-colors"
+            >
+              Tap here!
+            </button>
+          </div>
         </form>
       </div>
     </div>
