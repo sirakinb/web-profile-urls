@@ -107,30 +107,40 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
   };
 
   const handleSave = async () => {
-    if (!editForm || !card) return;
+    if (!editForm || !card || !user) return;
     
     setSaving(true);
     try {
-      const { error } = await supabase
-        .from('business_cards')
-        .update({
-          name: editForm.name,
-          title: editForm.title,
-          company: editForm.company,
-          email: editForm.email,
-          phone: editForm.phone,
-          website: editForm.website,
-          twitter: editForm.twitter,
-          instagram: editForm.instagram,
-          linkedin: editForm.linkedin,
-          tiktok: editForm.tiktok,
-          youtube: editForm.youtube,
-        })
-        .eq('id', card.id);
+      // Create an API request to our custom endpoint with authentication
+      const response = await fetch('/api/profile/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          profileId: card.id,
+          userId: user.id,
+          updates: {
+            name: editForm.name,
+            title: editForm.title,
+            company: editForm.company,
+            email: editForm.email,
+            phone: editForm.phone,
+            website: editForm.website,
+            twitter: editForm.twitter,
+            instagram: editForm.instagram,
+            linkedin: editForm.linkedin,
+            tiktok: editForm.tiktok,
+            youtube: editForm.youtube,
+          }
+        }),
+      });
 
-      if (error) {
-        console.error('Error updating profile:', error);
-        alert('Failed to save changes. Please try again.');
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.error('Error updating profile:', result);
+        alert(`Failed to save changes: ${result.error || 'Unknown error'}`);
       } else {
         // Update local state
         setCard(editForm);
