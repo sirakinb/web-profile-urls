@@ -81,6 +81,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
   useEffect(() => {
     if (user && card && user.id === card.user_id && showLoginModal === false) {
       setIsEditing(true);
+      setEditForm(card); // Initialize the edit form with current card data
     }
   }, [user, card, showLoginModal]);
 
