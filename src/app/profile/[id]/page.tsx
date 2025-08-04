@@ -1,27 +1,52 @@
 import { supabase } from '@/utils/supabaseClient';
 import React from 'react';
 import ContactActions from './ContactActions';
-import Image from 'next/image';
+import ProfileImageUpload from './ProfileImageUpload';
+
+interface BusinessCard {
+  id: string;
+  user_id: string;
+  is_primary: boolean;
+  name: string;
+  avatar_url: string | null;
+  theme_color: string;
+  title: string;
+  company: string;
+  email: string;
+  phone: string;
+  website: string;
+  twitter: string;
+  instagram: string;
+  linkedin: string;
+  tiktok: string;
+  youtube: string;
+  bio?: string;
+}
+
+type BusinessCardForActions = Pick<BusinessCard, 'name' | 'title' | 'company' | 'email' | 'phone' | 'website' | 'linkedin' | 'twitter' | 'instagram' | 'tiktok' | 'youtube'>;
 
 async function getUserPrimaryCard(userId: string) {
-  // Query Supabase for the user's primary business card
-  const { data, error } = await supabase
-    .from('public_business_cards')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('is_primary', true)
-    .single();
-  return { data, error };
+  try {
+    // Query Supabase for the user's primary business card
+    const { data, error } = await supabase
+      .from('public_business_cards')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('is_primary', true)
+      .single();
+    return { data, error };
+  } catch (error) {
+    console.error('Error in getUserPrimaryCard:', error);
+    return { data: null, error: error as Error };
+  }
 }
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const { data: card, error } = await getUserPrimaryCard(id);
+  try {
+    const { id } = await params;
+    const { data: card, error } = await getUserPrimaryCard(id);
 
-  // Debug output
-  console.log('ProfilePage debug:', { id, card, error });
-
-  if (error || !card) {
+    if (error || !card) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-4 font-sans">
         <div className="text-center">
@@ -45,33 +70,11 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-slate-400/10 to-purple-600/10 rounded-full translate-y-12 -translate-x-12"></div>
           
           {/* Profile Header */}
-          <div className="relative z-10 text-center mb-8">
-            <div className="relative inline-block mb-6">
-              {card.avatar_url && card.avatar_url.startsWith('http') ? (
-                <Image
-                  src={card.avatar_url}
-                  alt={card.name || card.email}
-                  width={112}
-                  height={112}
-                  unoptimized
-                  className="w-28 h-28 rounded-full object-cover border-4 border-white/20 shadow-xl"
-                  onError={(e) => {
-                    // If image fails to load, hide it and show default avatar
-                    const target = e.currentTarget as unknown as HTMLImageElement;
-                    target.style.display = 'none';
-                    if (target.parentElement && target.parentElement.nextElementSibling) {
-                      (target.parentElement.nextElementSibling as HTMLElement).style.display = 'flex';
-                    }
-                  }}
-                />
-              ) : null}
-              <div 
-                className="w-28 h-28 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 border-4 border-white/20 shadow-xl flex items-center justify-center"
-                style={{ display: card.avatar_url && card.avatar_url.startsWith('http') ? 'none' : 'flex' }}
-              >
-                <span className="material-icons text-white text-4xl">person</span>
-              </div>
-            </div>
+          <div className="relative z-10 flex flex-col items-center mb-8">
+            <ProfileImageUpload
+              avatarUrl={card.avatar_url}
+              userName={card.name || card.email}
+            />
             <h1 className="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">{card.name || 'No Name'}</h1>
             {card.title && (
               <p className="text-purple-200 font-medium text-lg mb-1">{card.title}</p>
@@ -121,7 +124,9 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-slate-500 via-slate-600 to-gray-600 rounded-xl md:rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-slate-500/25">
                     <span className="material-icons text-white text-lg md:text-xl">language</span>
                   </div>
-                  <span className="text-slate-700 md:text-white font-medium md:font-medium tracking-wide flex-1">{card.website}</span>
+                  <a href={card.website.startsWith('http') ? card.website : `https://${card.website}`} target="_blank" rel="noopener noreferrer" className="text-slate-700 md:text-white hover:text-slate-500 md:hover:text-gray-200 font-medium md:font-medium tracking-wide transition-colors flex-1">
+                    {card.website}
+                  </a>
                 </div>
               )}
 
@@ -183,7 +188,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           </div>
 
           {/* Action Buttons */}
-          <ContactActions card={card} />
+          <ContactActions card={card as BusinessCardForActions} />
         </div>
 
         {/* Footer */}
@@ -193,4 +198,18 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       </div>
     </div>
   );
+  } catch (error) {
+    console.error('Error in ProfilePage:', error);
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-4 font-sans">
+        <div className="text-center">
+          <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">
+            <span className="material-icons text-white text-4xl">error</span>
+          </div>
+          <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Something Went Wrong</h1>
+          <p className="text-gray-300 font-light">We encountered an error loading this profile.</p>
+        </div>
+      </div>
+    );
+  }
 } 
