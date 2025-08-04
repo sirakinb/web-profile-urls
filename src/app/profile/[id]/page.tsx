@@ -198,7 +198,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       </div>
     </div>
   );
-  } catch (error) {
+    } catch (error) {
     console.error('Error in ProfilePage:', error);
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-4 font-sans">
