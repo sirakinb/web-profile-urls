@@ -5,6 +5,14 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Client-side Supabase client for auth
+export const createBrowserClient = () => createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+  }
+});
+
 // Utility functions for profile image handling
 export const uploadProfileImage = async (file: File, userId: string): Promise<string | null> => {
   try {

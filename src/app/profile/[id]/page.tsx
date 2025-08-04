@@ -1,7 +1,11 @@
+'use client';
+
 import { supabase } from '@/utils/supabaseClient';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '@/components/AuthProvider';
 import ContactActions from './ContactActions';
 import ProfileImageUpload from './ProfileImageUpload';
+import LoginModal from '@/components/LoginModal';
 
 interface BusinessCard {
   id: string;
@@ -40,10 +44,56 @@ async function getUserPrimaryCard(userId: string) {
   }
 }
 
-export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    const { data: card, error } = await getUserPrimaryCard(id);
+export default function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const [card, setCard] = useState<BusinessCard | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const { user } = useAuth();
+
+  // Check if current user owns this profile
+  const isOwner = user && card && user.id === card.user_id;
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const resolvedParams = await params;
+        const { data, error } = await getUserPrimaryCard(resolvedParams.id);
+        if (error) {
+          setError(error);
+        } else {
+          setCard(data);
+        }
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProfile();
+  }, [params]);
+
+  const handleEditClick = () => {
+    if (user) {
+      setIsEditing(true);
+    } else {
+      setShowLoginModal(true);
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    setIsEditing(true);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
 
     if (error || !card) {
       return (
@@ -65,6 +115,21 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 flex items-center justify-center font-sans">
         <div className="w-full max-w-md">
           <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/10">
+            {/* Edit Button - Only show if user owns this profile */}
+            {isOwner && (
+              <div className="flex justify-end mb-4">
+                <button
+                  onClick={handleEditClick}
+                  className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl font-medium transition-colors flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                  {isEditing ? 'Done Editing' : 'Edit Profile'}
+                </button>
+              </div>
+            )}
+
             {/* Profile Header */}
             <div className="relative z-10 flex flex-col items-center mb-8">
               <ProfileImageUpload
@@ -187,22 +252,13 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             <p className="text-gray-500 text-sm font-light tracking-widest uppercase">Drop Card</p>
           </div>
         </div>
+
+        {/* Login Modal */}
+        <LoginModal
+          isOpen={showLoginModal}
+          onClose={() => setShowLoginModal(false)}
+          onSuccess={handleLoginSuccess}
+        />
       </div>
     );
-  } catch (error) {
-    console.error('Error in ProfilePage:', error);
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-4 font-sans">
-        <div className="text-center">
-          <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">
-            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-            </svg>
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Something Went Wrong</h1>
-          <p className="text-gray-300">We encountered an error loading this profile.</p>
-        </div>
-      </div>
-    );
-  }
 } 
