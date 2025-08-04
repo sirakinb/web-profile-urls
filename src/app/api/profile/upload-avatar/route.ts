@@ -83,21 +83,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify the user has a profile in our database
-    console.log('Looking for profile with user_id:', userId);
+    // Verify the user has a primary profile in our database
+    console.log('Looking for primary profile with user_id:', userId);
     
     const { data: profile, error: profileError } = await supabase
       .from('business_cards')
-      .select('id, user_id')
+      .select('id, user_id, is_primary')
       .eq('user_id', userId)
+      .eq('is_primary', true)
       .single();
 
-    console.log('Profile query result:', { profile, profileError });
+    console.log('Primary profile query result:', { profile, profileError });
 
     if (profileError || !profile) {
-      console.error('Profile not found for user_id:', userId, 'Error:', profileError);
+      console.error('Primary profile not found for user_id:', userId, 'Error:', profileError);
       return NextResponse.json(
-        { error: 'Profile not found' },
+        { error: 'Primary profile not found' },
         { status: 404 }
       );
     }
