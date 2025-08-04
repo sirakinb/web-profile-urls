@@ -58,6 +58,8 @@ export async function POST(request: NextRequest) {
   const file = formData.get('file') as File;
   const userId = formData.get('userId') as string;
 
+  console.log('Upload avatar request:', { userId, fileName: file?.name });
+
   if (!file || !userId) {
     return NextResponse.json(
       { error: 'File and userId are required' },
@@ -82,13 +84,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify the user has a profile in our database
+    console.log('Looking for profile with user_id:', userId);
+    
     const { data: profile, error: profileError } = await supabase
       .from('business_cards')
       .select('id, user_id')
       .eq('user_id', userId)
       .single();
 
+    console.log('Profile query result:', { profile, profileError });
+
     if (profileError || !profile) {
+      console.error('Profile not found for user_id:', userId, 'Error:', profileError);
       return NextResponse.json(
         { error: 'Profile not found' },
         { status: 404 }

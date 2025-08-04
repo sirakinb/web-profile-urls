@@ -57,6 +57,7 @@ export default function ProfileImageUpload({
     setUploading(true);
 
     try {
+      console.log('Uploading image for userId:', userId);
       const formData = new FormData();
       formData.append('file', file);
       formData.append('userId', userId);
