@@ -43,10 +43,9 @@ export async function POST(request: NextRequest) {
 
     // Verify the user actually owns this profile
     const { data: profile, error: profileError } = await supabase
-      .from('public_business_cards')
+      .from('business_cards')
       .select('user_id')
       .eq('user_id', userId)
-      .eq('is_primary', true)
       .single();
 
     if (profileError || !profile) {
@@ -75,10 +74,9 @@ export async function POST(request: NextRequest) {
 
     // Update the user's profile in the database
     const { error: updateError } = await supabase
-      .from('public_business_cards')
+      .from('business_cards')
       .update({ avatar_url: publicUrl })
-      .eq('user_id', userId)
-      .eq('is_primary', true);
+      .eq('user_id', userId);
 
     if (updateError) {
       console.error('Error updating profile:', updateError);

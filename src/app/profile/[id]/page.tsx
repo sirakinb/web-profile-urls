@@ -55,7 +55,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
   const { user, signOut } = useAuth();
 
   // Check if current user owns this profile
-  const isOwner = user && card && user.id === card.user_id;
+  const isOwner = Boolean(user && card && user.id === card.user_id);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -265,6 +265,11 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
               <ProfileImageUpload
                 avatarUrl={card.avatar_url}
                 userName={card.name || card.email}
+                userId={card.user_id}
+                isOwner={isOwner}
+                onImageUpdate={(newAvatarUrl) => {
+                  setCard(prev => prev ? { ...prev, avatar_url: newAvatarUrl } : prev);
+                }}
               />
               
               {/* Name Field */}

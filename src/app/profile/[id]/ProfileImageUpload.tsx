@@ -1,21 +1,104 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useAuth } from '@/components/AuthProvider';
 
 interface ProfileImageUploadProps {
   avatarUrl: string | null;
   userName: string;
+  userId?: string;
+  isOwner?: boolean;
+  onImageUpdate?: (newAvatarUrl: string) => void;
 }
 
 export default function ProfileImageUpload({ 
   avatarUrl, 
-  userName
+  userName,
+  userId,
+  isOwner = false,
+  onImageUpdate
 }: ProfileImageUploadProps) {
   const [imageError, setImageError] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user, session } = useAuth();
 
   const handleImageClick = () => {
-    // Web profiles are read-only - only the mobile app can update profile pictures
-    alert('Profile pictures can only be updated through the mobile app');
+    if (!user) {
+      alert('Please log in to update your profile picture');
+      return;
+    }
+
+    if (!isOwner) {
+      alert('You can only update your own profile picture');
+      return;
+    }
+
+    // Trigger file input
+    fileInputRef.current?.click();
+  };
+
+  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !user || !userId) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image size must be less than 5MB');
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      // Get the session token
+      const token = session?.access_token;
+
+      if (!token) {
+        alert('Authentication error. Please log in again.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('userId', userId);
+
+      const response = await fetch('/api/profile/upload-avatar', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to upload image');
+      }
+
+      // Update the avatar URL in the parent component
+      if (onImageUpdate && result.avatar_url) {
+        onImageUpdate(result.avatar_url);
+      }
+
+      alert('Profile picture updated successfully!');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Failed to upload image. Please try again.');
+    } finally {
+      setUploading(false);
+      // Clear file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   const handleImageError = () => {
@@ -26,9 +109,20 @@ export default function ProfileImageUpload({
 
   return (
     <div className="relative flex flex-col items-center justify-center mb-6 w-full">
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileSelect}
+        className="hidden"
+      />
+
       {/* Profile Image */}
       <div 
-        className="relative group cursor-not-allowed flex justify-center"
+        className={`relative group flex justify-center ${
+          isOwner && user ? 'cursor-pointer' : 'cursor-default'
+        }`}
         onClick={handleImageClick}
       >
         {hasValidAvatar ? (
@@ -46,18 +140,48 @@ export default function ProfileImageUpload({
           </div>
         )}
 
-        {/* Mobile app hint overlay */}
-        <div className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <div className="text-center">
-            <span className="material-icons text-white text-2xl mb-1">smartphone</span>
-            <p className="text-white text-xs font-medium">Update via Mobile App</p>
+        {/* Upload overlay - shows when user can edit */}
+        {isOwner && user && (
+          <div className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="text-center">
+              {uploading ? (
+                <>
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mx-auto mb-1"></div>
+                  <p className="text-white text-xs font-medium">Uploading...</p>
+                </>
+              ) : (
+                <>
+                  <span className="material-icons text-white text-2xl mb-1">camera_alt</span>
+                  <p className="text-white text-xs font-medium">Update Photo</p>
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Non-owner hint overlay */}
+        {(!isOwner || !user) && (
+          <div className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="text-center">
+              <span className="material-icons text-white text-2xl mb-1">
+                {!user ? 'login' : 'lock'}
+              </span>
+              <p className="text-white text-xs font-medium">
+                {!user ? 'Login to Edit' : 'Owner Only'}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Mobile app hint */}
+      {/* Status text */}
       <p className="text-center text-gray-400 text-xs mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-full">
-        Use the mobile app to update your profile picture
+        {isOwner && user 
+          ? 'Click to update your profile picture' 
+          : !user 
+            ? 'Login to update profile pictures'
+            : 'Only the profile owner can update pictures'
+        }
       </p>
     </div>
   );
