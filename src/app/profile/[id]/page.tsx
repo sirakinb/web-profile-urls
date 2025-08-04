@@ -240,7 +240,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
               {isOwner && isEditing ? (
                 <input
                   type="text"
-                  value={editForm?.name || ''}
+                  value={editForm?.name || card.name || ''}
                   onChange={(e) => setEditForm(prev => prev ? {...prev, name: e.target.value} : null)}
                   className="text-3xl font-bold text-white mb-2 bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="Your Name"
@@ -253,7 +253,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
               {isOwner && isEditing ? (
                 <input
                   type="text"
-                  value={editForm?.title || ''}
+                  value={editForm?.title || card.title || ''}
                   onChange={(e) => setEditForm(prev => prev ? {...prev, title: e.target.value} : null)}
                   className="text-purple-200 font-medium text-lg mb-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="Your Title"
@@ -268,7 +268,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
               {isOwner && isEditing ? (
                 <input
                   type="text"
-                  value={editForm?.company || ''}
+                  value={editForm?.company || card.company || ''}
                   onChange={(e) => setEditForm(prev => prev ? {...prev, company: e.target.value} : null)}
                   className="text-gray-400 text-sm bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="Your Company"
@@ -301,7 +301,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 {isOwner && isEditing ? (
                   <input
                     type="email"
-                    value={editForm?.email || ''}
+                    value={editForm?.email || card.email || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, email: e.target.value} : null)}
                     className="text-white font-medium flex-1 bg-transparent border-none focus:outline-none"
                     placeholder="your@email.com"
@@ -319,7 +319,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 {isOwner && isEditing ? (
                   <input
                     type="tel"
-                    value={editForm?.phone || ''}
+                    value={editForm?.phone || card.phone || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, phone: e.target.value} : null)}
                     className="text-white font-medium flex-1 bg-transparent border-none focus:outline-none"
                     placeholder="Your phone number"
@@ -337,7 +337,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 {isOwner && isEditing ? (
                   <input
                     type="url"
-                    value={editForm?.website || ''}
+                    value={editForm?.website || card.website || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, website: e.target.value} : null)}
                     className="text-white font-medium flex-1 bg-transparent border-none focus:outline-none"
                     placeholder="www.yourwebsite.com"
@@ -361,7 +361,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 {isOwner && isEditing ? (
                   <input
                     type="url"
-                    value={editForm?.linkedin || ''}
+                    value={editForm?.linkedin || card.linkedin || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, linkedin: e.target.value} : null)}
                     className="text-blue-300 font-medium flex-1 bg-transparent border-none focus:outline-none"
                     placeholder="LinkedIn profile URL"
@@ -385,7 +385,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 {isOwner && isEditing ? (
                   <input
                     type="text"
-                    value={editForm?.twitter || ''}
+                    value={editForm?.twitter || card.twitter || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, twitter: e.target.value} : null)}
                     className="text-white font-medium flex-1 bg-transparent border-none focus:outline-none"
                     placeholder="@username or full URL"
@@ -409,7 +409,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 {isOwner && isEditing ? (
                   <input
                     type="url"
-                    value={editForm?.instagram || ''}
+                    value={editForm?.instagram || card.instagram || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, instagram: e.target.value} : null)}
                     className="text-purple-300 font-medium flex-1 bg-transparent border-none focus:outline-none"
                     placeholder="Instagram profile URL"
@@ -433,7 +433,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 {isOwner && isEditing ? (
                   <input
                     type="text"
-                    value={editForm?.tiktok || ''}
+                    value={editForm?.tiktok || card.tiktok || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, tiktok: e.target.value} : null)}
                     className="text-pink-300 font-medium flex-1 bg-transparent border-none focus:outline-none"
                     placeholder="@username or full URL"
@@ -457,7 +457,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 {isOwner && isEditing ? (
                   <input
                     type="url"
-                    value={editForm?.youtube || ''}
+                    value={editForm?.youtube || card.youtube || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, youtube: e.target.value} : null)}
                     className="text-red-300 font-medium flex-1 bg-transparent border-none focus:outline-none"
                     placeholder="YouTube channel URL"
