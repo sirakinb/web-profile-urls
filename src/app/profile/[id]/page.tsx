@@ -250,16 +250,15 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
 
             {/* Profile Header */}
             <div className="relative z-10 flex flex-col items-center mb-8">
-              <ProfileImageUpload
-                avatarUrl={card.avatar_url}
-                userName={card.name || card.email}
-                userId={card.user_id}
-                profileId={card.id}
-                isOwner={isOwner}
-                onImageUpdate={(newAvatarUrl) => {
-                  setCard(prev => prev ? { ...prev, avatar_url: newAvatarUrl } : prev);
-                }}
-              />
+                      <ProfileImageUpload
+          avatarUrl={card.avatar_url}
+          userName={card.name || card.email}
+          userId={card.user_id}
+          isOwner={isOwner}
+          onImageUpdate={(newAvatarUrl) => {
+            setCard(prev => prev ? { ...prev, avatar_url: newAvatarUrl } : prev);
+          }}
+        />
               
               {/* Name Field */}
               {isOwner && isEditing ? (

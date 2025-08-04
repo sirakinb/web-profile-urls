@@ -54,17 +54,16 @@ export async function POST(request: NextRequest) {
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const formData = await request.formData();
-    const file = formData.get('file') as File;
-    const userId = formData.get('userId') as string;
-    const profileId = formData.get('profileId') as string;
+      const formData = await request.formData();
+  const file = formData.get('file') as File;
+  const userId = formData.get('userId') as string;
 
-    if (!file || !userId || !profileId) {
-      return NextResponse.json(
-        { error: 'File, userId, and profileId are required' },
-        { status: 400 }
-      );
-    }
+  if (!file || !userId) {
+    return NextResponse.json(
+      { error: 'File and userId are required' },
+      { status: 400 }
+    );
+  }
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
@@ -82,11 +81,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify the user actually owns this profile
+    // Verify the user has a profile in our database
     const { data: profile, error: profileError } = await supabase
       .from('business_cards')
-      .select('user_id')
-      .eq('id', profileId)
+      .select('id, user_id')
+      .eq('user_id', userId)
       .single();
 
     if (profileError || !profile) {
@@ -110,7 +109,7 @@ export async function POST(request: NextRequest) {
     const { error: updateError } = await supabase
       .from('business_cards')
       .update({ avatar_url: publicUrl })
-      .eq('id', profileId);
+      .eq('user_id', userId);
 
     if (updateError) {
       console.error('Error updating profile:', updateError);
