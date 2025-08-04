@@ -225,39 +225,27 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 </button>
               )}
 
-              {/* Edit/Save/Cancel Buttons */}
-              <div className="flex gap-2">
-                {isOwner && isEditing ? (
-                  <>
-                    <button
-                      onClick={handleCancel}
-                      className="px-4 py-2 bg-gray-600/50 hover:bg-gray-600/70 text-white rounded-xl font-medium transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={handleSave}
-                      disabled={saving}
-                      className="px-4 py-2 bg-green-600/80 hover:bg-green-600 text-white rounded-xl font-medium transition-colors flex items-center gap-2 disabled:opacity-50"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      {saving ? 'Saving...' : 'Save Changes'}
-                    </button>
-                  </>
-                ) : (
+              {/* Edit/Save/Cancel Buttons - Only show when editing */}
+              {isOwner && isEditing && (
+                <div className="flex gap-2">
                   <button
-                    onClick={handleEditClick}
-                    className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl font-medium transition-colors flex items-center gap-2"
+                    onClick={handleCancel}
+                    className="px-4 py-2 bg-gray-600/50 hover:bg-gray-600/70 text-white rounded-xl font-medium transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSave}
+                    disabled={saving}
+                    className="px-4 py-2 bg-green-600/80 hover:bg-green-600 text-white rounded-xl font-medium transition-colors flex items-center gap-2 disabled:opacity-50"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    Manage or Create Profile
+                    {saving ? 'Saving...' : 'Save Changes'}
                   </button>
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
             {/* Profile Header */}
@@ -514,9 +502,17 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
             <ContactActions card={card as BusinessCardForActions} />
           </div>
 
-          {/* Footer */}
+          {/* Footer - Manage Profile Button */}
           <div className="text-center mt-8">
-            <p className="text-gray-500 text-sm font-light tracking-widest uppercase">Drop Card</p>
+            <button
+              onClick={handleEditClick}
+              className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-medium transition-colors flex items-center gap-2 mx-auto"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Manage or Create Profile
+            </button>
           </div>
         </div>
 
