@@ -57,10 +57,11 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const file = formData.get('file') as File;
     const userId = formData.get('userId') as string;
+    const profileId = formData.get('profileId') as string;
 
-    if (!file || !userId) {
+    if (!file || !userId || !profileId) {
       return NextResponse.json(
-        { error: 'File and userId are required' },
+        { error: 'File, userId, and profileId are required' },
         { status: 400 }
       );
     }
@@ -85,7 +86,7 @@ export async function POST(request: NextRequest) {
     const { data: profile, error: profileError } = await supabase
       .from('business_cards')
       .select('user_id')
-      .eq('user_id', userId)
+      .eq('id', profileId)
       .single();
 
     if (profileError || !profile) {
@@ -109,7 +110,7 @@ export async function POST(request: NextRequest) {
     const { error: updateError } = await supabase
       .from('business_cards')
       .update({ avatar_url: publicUrl })
-      .eq('user_id', userId);
+      .eq('id', profileId);
 
     if (updateError) {
       console.error('Error updating profile:', updateError);

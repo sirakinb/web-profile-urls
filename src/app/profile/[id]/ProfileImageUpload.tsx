@@ -7,6 +7,7 @@ interface ProfileImageUploadProps {
   avatarUrl: string | null;
   userName: string;
   userId?: string;
+  profileId?: string;
   isOwner?: boolean;
   onImageUpdate?: (newAvatarUrl: string) => void;
 }
@@ -15,6 +16,7 @@ export default function ProfileImageUpload({
   avatarUrl, 
   userName,
   userId,
+  profileId,
   isOwner = false,
   onImageUpdate
 }: ProfileImageUploadProps) {
@@ -60,6 +62,7 @@ export default function ProfileImageUpload({
       const formData = new FormData();
       formData.append('file', file);
       formData.append('userId', userId);
+      formData.append('profileId', profileId || '');
 
       const response = await fetch('/api/profile/upload-avatar', {
         method: 'POST',

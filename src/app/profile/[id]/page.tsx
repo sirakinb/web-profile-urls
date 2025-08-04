@@ -254,6 +254,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 avatarUrl={card.avatar_url}
                 userName={card.name || card.email}
                 userId={card.user_id}
+                profileId={card.id}
                 isOwner={isOwner}
                 onImageUpdate={(newAvatarUrl) => {
                   setCard(prev => prev ? { ...prev, avatar_url: newAvatarUrl } : prev);
